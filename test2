@@ -1,0 +1,26 @@
+#include<stdio.h>
+
+int main()
+{
+  int ch=0;
+	int i=1;
+	int r=0;
+	while(i<=26)
+	 {
+	     while(2<=i&&(r=getchar())!='\n') //使下面的getchar函数获取前，缓冲区内为空
+	          {
+		            ;
+	           }
+	     printf("请输入字符");
+	     ch=getchar();
+	     if(ch<65||ch>91)
+		     printf("请重新输入\n");
+	     else
+	         putchar(ch+32);      //将输入的大写字母变成小写字母输出
+	         printf("\n");
+	     i++;
+	 }
+  
+  return 0;
+  
+  }
