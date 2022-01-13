@@ -1,0 +1,15 @@
+#include<stdio.h>
+
+int main()
+{
+  int n=0;               
+	int sum=0;
+	int we=1;
+	for(n=1;n<=10;n++)
+	{
+		we=we*n;         
+		sum=sum+we;
+	}
+	printf("1-10的阶乘和=%d\n",sum);
+  return 0;
+  }
