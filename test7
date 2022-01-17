@@ -1,0 +1,25 @@
+#include<stdio.h>
+
+int jump(int x)     //利用递归解决青蛙跳台阶问题
+{
+    if(x>2)
+		return jump(x-1)+jump(x-2);
+	else
+		if(x==1)
+			return 1;
+		if(x==2)
+			return 2;
+
+}
+
+int main()
+{
+  int a=0;
+	int b=0;
+	printf("请输入要第几个台阶>:");
+	scanf("%d",&a);
+	b=jump(a);
+	printf("要到第%d个台阶总共有%d个方法\n",a,b);
+
+return 0;
+}
