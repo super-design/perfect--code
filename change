@@ -1,0 +1,19 @@
+#include<stdio.h>
+  //一瓶水一块，两个空瓶能换一瓶水，有二十块钱总共能喝几瓶水
+int main()
+{
+	int total=0;
+	int empty=0;
+	int money=0;
+	printf("请输入钱数:");
+	scanf("%d",&money);
+	total=money;   //花钱买的总瓶数
+	empty=money;   //喝完的花钱买的空瓶
+	while(empty>1)
+	{
+	   total +=empty/2;   //加上换回来的空瓶
+	   empty=empty/2+empty%2;  //手里面还剩余的空瓶
+	}
+	printf("总共喝了%d瓶\n",total);
+  return 0;
+}
