@@ -1,0 +1,26 @@
+#include<assert.h>
+#include<stdio.h>
+//自定义字符串追加函数
+char *my_strcat(char*arr1,const char*arr2)  //将字符串arr2追加到arr1中
+{
+	char *ret=arr1;
+	assert(arr1);   //断言判断指针是否为空，指针必须有指向的内容
+	assert(arr2);
+	while(*arr1)
+	{
+	  arr1++;       //将arr1指针指向'\0'
+	}
+	while(*arr1++=*arr2++)   //将arr2的内容追加到arr1所指向内容的后面，包括'\0'
+	{
+	  ;
+	}
+	return ret;
+}
+int main()
+{
+	char arr1[30]="asdfg";
+	char arr2[]="qwe";
+	char*ret =my_strcat(arr1,arr2);
+	printf("%s\n",ret);
+    return 0;
+}
