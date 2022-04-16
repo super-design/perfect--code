@@ -1,0 +1,29 @@
+
+#include<stdio.h>
+#include<assert.h>
+//自定义比较字符串函数
+int my_strcmp(const char*p,const char*q)   //p和q所指向的内容不能被修改
+{
+	assert(p);   //断言判断p、q是否为空，为空时会报错
+    assert(q);
+	while(*p==*q)   
+	{
+       if(*p=='\0')
+		   return 0;   //p和q指向的内容相等返回0
+	   p++;
+	   q++;
+	}
+	if(*p > *q)
+		return 1;   //p指向的内容大于q指向的内容返回1
+	else
+		return -1;  //p指向的内容小于q指向的内容返回-1
+
+}
+int main()
+{
+  char *p="qsdfg";
+  char *q="asdfg";
+  int ret=my_strcmp(p,q);
+  printf("%d\n",ret);
+  return 0;
+}
