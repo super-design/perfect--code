@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<assert.h>
+//自定义查找字符串函数
+char* my_strstr(const char *p,const char *q)   //查找q指向的字符串是否在p指向的字符串中
+{
+	char* s1=NULL;
+	char* s2=NULL;
+	char* r=(char*)p;    //r表示p中开始匹配的首字符位置
+	assert(p!=NULL);
+	assert(q!=NULL);
+	if(*q=='\0')    //如果q指向的字符串为空时返回p的首元素地址
+		return r;
+	while(*r)
+	{
+	   s1=r;
+	   s2=(char*)q;
+	   while((*s1!='\0')&&(*s2!='\0')&&(*s1==*s2))
+	   {
+	       s1++;
+		   s2++;
+	   }
+	   if(*s2=='\0')
+		   return r;     //匹配成功返回p中符合匹配的首字符地址
+		r++;    //当前位置为首字符匹配不成功时，开始匹配的首字符位置后移
+	}
+	return r;   //匹配不成功时，说明s1已经指到了p字符串'\0'位置
+}
+int main()
+{
+	char arr1[]="abbcdef";
+	char arr2[]="bbc";
+	char *ret=my_strstr(arr1,arr2);
+	if(*ret)   
+	{
+		printf("%s\n",ret);
+	}
+	else    //此时*ret为0
+		printf("找不到\n");
+   return 0;
+}
