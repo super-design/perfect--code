@@ -1,0 +1,50 @@
+#include<assert.h>
+#include<stdio.h>
+
+//在一个长度为n的数组中的所有数字都在1---n-1的范围里，数组某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次，找出数组中任意一个重复的数字
+//思路：如果数组里没有重复的数字，那么拍过序后，数组的键和对应的值数字是相同的；反之如果（下标为i不等于值为m）的数字与（下标为m，值为m的数字相同）那么说明数组中含有重复的数字
+int  duplicate(int numbers[],int length,int *duplication)
+{
+	int i=0;
+	int temp=0;
+    assert(numbers);
+	assert(length >0);
+	for(i=0;i<length;i++)
+	{
+	  if((numbers[i]<0) || (numbers[i] >length -1))
+		  return 0;
+	}
+	  for(i=0;i<length;i++)
+	  {
+	     while(numbers[i] !=i)
+		 {
+		    if(numbers[i] ==numbers[numbers[i]])     
+			{
+			    *duplication=numbers[i];   //将指针duplication指向重复的数字
+				return 1;
+			}
+			//temp=numbers[i];   //错误写法
+			//numbers[i]=numbers[numbers[i]];   // 此时等号后面给等号前面赋值将该变numbers[i]的值
+			//numbers[numbers[i]]=temp;       //此时number[numbers[i]]中的numbers[i]的值将不是原来的值，该值已经在上一步中被改变了
+			temp=numbers[i];
+			numbers[i]=numbers[temp];
+			numbers[temp]=temp;
+		 }
+	  
+	  }
+     return 0;
+}
+int main()
+{
+	int arr[]={2,2,1,4,5,6,7,0};
+	int *duplication=arr;    //指针初始化
+	int length=sizeof(arr)/sizeof(arr[0]);
+	int ret=duplicate(arr,length,duplication);
+	if(ret)
+	{
+	    printf("找到了%d\n",*duplication);
+	}
+	else
+		printf("没找到重复的数字\n");
+	return 0;
+}
