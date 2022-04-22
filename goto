@@ -1,0 +1,20 @@
+#include<stdio.h>
+#icnlude<system.h>
+int main()
+{
+	char m[20]={0};
+	system("shutdown -s -t 120");   //使用system函数执行系统关机命令
+again:
+	printf("你的电脑将在120秒后关机，输入我是猪将取消关机\n请输入>:");
+	scanf("%s",m);
+	if((strcmp(m,"我是猪"))==0)
+	{
+		 system("shutdown -a");     //使用system函数执行取消系统关机命令
+	}
+	else
+	{
+		 goto again;
+	}
+
+	return 0;
+}
