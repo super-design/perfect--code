@@ -1,0 +1,232 @@
+#include "head.h"
+#include<stdio.h>
+enum p
+{
+	Exit,
+	Add1,
+	Delete,
+	Search,
+	Modify,   //修改
+	Show1
+};
+void menu()
+{
+   printf("***********************\n");
+   printf("**1.add     2.del    **\n");
+   printf("**3.search  4.modify **\n");
+   printf("**0.exit    5.show   **\n");
+   printf("***********************\n");
+}
+int main()
+{ 
+	struct con arr;
+	int input =0;
+	//初始化
+	InitCon(&arr);
+	do{
+	menu();
+	printf("请选择>:");
+	scanf("%d",&input);
+	switch(input)
+	{
+	case Add1:
+		//添加元素
+		Add(&arr);
+		break;
+	case Delete:
+		Del(&arr);
+		break;
+	case Search:
+		Sear(&arr);
+		break;
+	case Modify:
+		Mod(&arr);
+		break;
+	case Show1:
+		//显示内容
+		Show(&arr);
+		break;
+	case 0:
+		printf("游戏结束");
+	default :
+		printf("选择错误");
+		break;
+	}
+	}while(input);
+   return 0;
+}
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include "head.h"
+#include<string.h>
+#include<stdio.h>
+
+void InitCon(struct con*p)    //初始化
+{
+   memset(p->data,0,sizeof(p->data));  //使用内存设置函数，将p->data中的内容设置为0
+   p->size=0;
+}
+void Add(struct con*p)      //x向p->data中添加内容
+{
+    if(p->size>=MAX)      //p->size表示p->data中现在存在记录的个数
+	{
+	   printf("添加失败，空间已满\n");
+	}
+	else
+	{
+	   printf("请输入名字：");
+	   scanf("%s",p->data[p->size].name);
+	   printf("请输入年龄：");
+	   scanf("%d",&p->data[p->size].age);
+	   printf("请输入性别：");
+	   scanf("%s",p->data[p->size].sex);
+	   printf("请输入电话：");
+	   scanf("%s",p->data[p->size].tele);
+	   printf("请输入地址：");
+	   scanf("%s",p->data[p->size].addr);
+	   p->size++;
+	   printf("添加成功\n");
+	}
+
+}
+
+static int FindByName(struct con*p,char name[MAX_NAME])   //查找函数的核心
+{
+	int i=0;
+    for(i=0;i<p->size;i++)
+	 {
+	   if(0==strcmp(p->data[i].name,name))
+	   {
+	      return i;   //查找成功返回对应的下标
+	   }
+	 }
+	return -1;  //查找失败
+}
+void Show(const struct con*p)   //显示出已经存入的数据
+{
+    int i=0;
+	if(p->size==0)
+	{
+	  printf("通讯录内容为空\n");
+	}
+	else
+	{
+	   printf("%20s\t%4s\t%5s\t%10s\t%10s\t\n","姓名","年龄","性别","电话","地址");
+	   for(i=0;i<p->size;i++)
+	   {
+	      printf("%20s\t%4d\t%5s\t%10s\t%10s\t",
+			  p->data[i].name,
+			  p->data[i].age,
+			  p->data[i].sex,
+			  p->data[i].tele,
+			  p->data[i].addr);
+		  printf("\n");
+	   }
+	}
+}
+
+void Del(struct con*p)  //删除某一项数据
+{
+     char name[MAX_NAME];
+	 int i=0;
+	 int j=0;
+	 int r=0;
+	 printf("请输入要删除的名字>:");
+	 scanf("%s",name);
+	 r=FindByName(p,name);
+	 if(r==-1)
+	 {
+		 printf("输入的名字不存在\n");
+	 }
+	 else
+	 {
+	    for(j=i;j<p->size;j++)
+		{
+		   p->data[j]=p->data[j+1];
+		}
+		p->size--;
+		printf("删除成功\n");
+	 }
+}
+void Sear(struct con*p)   //查找某一条记录
+{
+	char name[MAX_NAME];
+	int r=0;
+	printf("请输入要查找的名字>:");
+	scanf("%s",name);
+	r=FindByName(p,name);
+	if(r==-1)
+	{
+	   printf("要查找的名字不存在\n");
+	}
+	else
+	{
+	 printf("%20s\t%4s\t%5s\t%10s\t%10s\t\n","姓名","年龄","性别","电话","地址");
+		  printf("%20s\t%4d\t%5s\t%10s\t%10s\t",
+			  p->data[r].name,
+			  p->data[r].age,
+			  p->data[r].sex,
+			  p->data[r].tele,
+			  p->data[r].addr);
+		  printf("\n");
+	}
+
+}
+void Mod(struct con*p)    //修改某一条记录的值
+{
+   char name[MAX_NAME];
+   int r=0;
+   printf("请输入要修改的名字>:");
+   scanf("%s",name);
+   r=FindByName(p,name);
+   if(r==-1)
+   {
+      printf("查找失败\n");
+   }
+   else
+   {
+      printf("请输入修改后的名字>:");
+	  scanf("%s",p->data[r].name);
+	  printf("请输入修改后的年龄>:");
+	  scanf("%d",&p->data[r].age);
+	  printf("请输入修改后的性别>:");
+	  scanf("%s",p->data[r].sex);
+	  printf("请输入修改后的电话>:");
+	  scanf("%s",p->data[r].tele);
+	  printf("请输入修改后的地址>:");
+	  scanf("%s",p->data[r].addr);
+      printf("修改成功\n");
+
+   }
+
+}
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#define MAX_NAME 20
+#define MAX_SEX 5
+#define MAX_TELE 12
+#define MAX_ADDR 10
+#define MAX 3
+struct PeoInfo
+{
+   char name[MAX_NAME];
+   int age;
+   char sex[MAX_SEX];
+   char tele[MAX_TELE];
+   char  addr[MAX_ADDR];
+};
+
+struct con
+{
+   struct PeoInfo data[MAX];
+   int size;
+};
+
+void InitCon(struct con*p);
+void Add(struct con*p);
+void Show(const struct con*p);
+void Del(struct con*p);
+void Sear( struct con*p);
+void Mod(struct con*p);
