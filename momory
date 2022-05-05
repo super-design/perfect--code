@@ -1,0 +1,22 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+void getmom(char**p)   //用二级指针指向指针str，这样p可以修改str的内容
+{
+	*p=(char*)malloc(100);
+
+}
+void test()
+{
+    char*str=NULL;
+	getmom(&str);   //传入的是str地址
+	strcpy(str,"hello word");
+	printf(str);
+	printf("\n");
+}
+int main()
+{
+	test();
+   return 0;
+}
